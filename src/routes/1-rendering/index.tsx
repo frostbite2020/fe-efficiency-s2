@@ -27,7 +27,7 @@ const TodoInput = ({ value, onChange, onAdd }: { value: string; onChange: (value
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        onKeyPress={handleKeyPress}
+        onKeyDown={handleKeyPress}
         placeholder="Add new todo"
       />
       <Button onClick={onAdd}>Add</Button>
