@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 interface Todo {
 	id: number;
@@ -69,6 +69,7 @@ const TodoItem = ({
 
 function RouteComponent() {
 	const [todos, setTodos] = useState<Todo[]>([]);
+	const visibleTodos = useMemo(() => todos, [todos]);
 	const [newTodo, setNewTodo] = useState("");
 
 	const addTodo = () => {
@@ -104,7 +105,7 @@ function RouteComponent() {
 		<div className="p-4 max-w-md mx-auto">
 			<TodoInput value={newTodo} onChange={handleInputChange} onAdd={addTodo} />
 			<ul className="space-y-2">
-				{todos.map((todo) => (
+				{visibleTodos.map((todo) => (
 					<TodoItem
 						key={todo.id}
 						todo={todo}
