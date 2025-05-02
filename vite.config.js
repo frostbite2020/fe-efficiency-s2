@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 
 import { resolve } from "path";
 import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
-import {visualizer} from "rollup-plugin-visualizer";
+import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,11 +13,11 @@ export default defineConfig({
 		viteReact(),
 		tailwindcss(),
 		visualizer({
-			filename: 'stats.html',
+			filename: "stats.html",
 			open: true,
 			gzipSize: true,
 			brotliSize: true,
-		})
+		}),
 	],
 	test: {
 		globals: true,

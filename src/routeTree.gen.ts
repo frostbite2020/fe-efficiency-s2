@@ -12,12 +12,26 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as R2BundleSizeIndexImport } from './routes/2-bundle-size/index'
+import { Route as R1RenderingIndexImport } from './routes/1-rendering/index'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const R2BundleSizeIndexRoute = R2BundleSizeIndexImport.update({
+  id: '/2-bundle-size/',
+  path: '/2-bundle-size/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const R1RenderingIndexRoute = R1RenderingIndexImport.update({
+  id: '/1-rendering/',
+  path: '/1-rendering/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +46,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/1-rendering/': {
+      id: '/1-rendering/'
+      path: '/1-rendering'
+      fullPath: '/1-rendering'
+      preLoaderRoute: typeof R1RenderingIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/2-bundle-size/': {
+      id: '/2-bundle-size/'
+      path: '/2-bundle-size'
+      fullPath: '/2-bundle-size'
+      preLoaderRoute: typeof R2BundleSizeIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +67,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/1-rendering': typeof R1RenderingIndexRoute
+  '/2-bundle-size': typeof R2BundleSizeIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/1-rendering': typeof R1RenderingIndexRoute
+  '/2-bundle-size': typeof R2BundleSizeIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/1-rendering/': typeof R1RenderingIndexRoute
+  '/2-bundle-size/': typeof R2BundleSizeIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/1-rendering' | '/2-bundle-size'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/1-rendering' | '/2-bundle-size'
+  id: '__root__' | '/' | '/1-rendering/' | '/2-bundle-size/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R1RenderingIndexRoute: typeof R1RenderingIndexRoute
+  R2BundleSizeIndexRoute: typeof R2BundleSizeIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R1RenderingIndexRoute: R1RenderingIndexRoute,
+  R2BundleSizeIndexRoute: R2BundleSizeIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +115,19 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/1-rendering/",
+        "/2-bundle-size/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/1-rendering/": {
+      "filePath": "1-rendering/index.tsx"
+    },
+    "/2-bundle-size/": {
+      "filePath": "2-bundle-size/index.tsx"
     }
   }
 }

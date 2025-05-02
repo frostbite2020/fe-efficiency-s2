@@ -12,18 +12,17 @@ export const Route = createRootRoute({
 
 function RouteComponent() {
 	scan({
-		enabled: true
+		enabled: true,
 	});
 
 	return (
 		<>
 			<TanstackQueryProvider>
-
 				<Outlet />
 				<TanStackRouterDevtools />
 
 				<TanstackQueryLayout />
 			</TanstackQueryProvider>
 		</>
-	)
+	);
 }
